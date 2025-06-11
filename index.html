@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio - Chuyên gia Web & Bảo mật</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#1E3A8A",
+              accent: "#60A5FA",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-gray-100 font-[Inter] text-gray-800">
+    <div class="max-w-6xl mx-auto px-6 py-10">
+      <!-- Header Section -->
+      <header
+        class="bg-white shadow-md rounded-xl p-6 flex flex-col md:flex-row items-center gap-8"
+      >
+        <div
+          class="w-40 h-40 rounded-full overflow-hidden border-4 border-primary"
+        >
+          <img
+            src="./photo_2025-06-11_13-20-24.jpg"
+            alt="Ảnh cá nhân"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div>
+          <h1 class="text-4xl font-bold text-primary">Lê Văn Thắng</h1>
+          <p class="mt-2 text-lg">
+            Ngày sinh: <span class="text-gray-600">22/12/1996</span>
+          </p>
+          <p>
+            Email:
+            <a
+              href="mailto:thangle96.it@gmail.com"
+              class="text-blue-600 hover:underline"
+              >thangle96.it@gmail.com</a
+            >
+          </p>
+          <p>SĐT: <span class="text-gray-600">0986806538</span></p>
+          <p>Địa chỉ: <span class="text-gray-600">Tân Phú, Đồng Nai</span></p>
+          <p>
+            LinkedIn / GitHub:
+            <a href="#" class="text-blue-500 hover:underline">[Link nếu có]</a>
+          </p>
+        </div>
+      </header>
+
+      <!-- Tóm tắt năng lực -->
+      <section class="mt-10 bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-2xl font-semibold text-primary mb-3">
+          Tóm tắt năng lực
+        </h2>
+        <p class="text-gray-700 leading-relaxed">
+          Lập trình viên web chuyên nghiệp với hơn 7 năm kinh nghiệm trong phát
+          triển hệ thống CMS, HRM, web services cho doanh nghiệp và chính phủ.
+          Có nền tảng kỹ thuật vững chắc về bảo mật, từng giữ vai trò IT Lead và
+          chuyên gia pentest. Thông thạo PHP, CodeIgniter, ReactJS, NextJS,
+          NodeJS, Python và WordPress.
+        </p>
+      </section>
+
+      <!-- Kinh nghiệm làm việc -->
+      <section class="mt-10 bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-2xl font-semibold text-primary mb-4">
+          Kinh nghiệm làm việc
+        </h2>
+
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-xl font-bold text-gray-800">
+              OKVIP – IT Leader – Web & Security
+            </h3>
+            <p class="text-sm text-gray-500 mb-1">07/2025 – Hiện tại</p>
+            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+              <li>Quản lý nhóm IT, bảo trì và phát triển hệ thống chính.</li>
+              <li>Fix bug phức tạp trên WordPress và tối ưu bảo mật.</li>
+              <li>Xây dựng hệ thống chống DDoS, pentest nội bộ.</li>
+              <li>Công nghệ: NodeJS, ReactJS, Python, WordPress.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold text-gray-800">
+              OKVIP – Web Developer (Remote)
+            </h3>
+            <p class="text-sm text-gray-500 mb-1">05/2022 – 07/2025</p>
+            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+              <li>Phát triển hệ thống CMS và giao diện landing page.</li>
+              <li>Tối ưu trải nghiệm người dùng và tốc độ tải trang.</li>
+              <li>Công nghệ: NextJS, ReactJS, NodeJS.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold text-gray-800">
+              Plott Asian – PHP Developer
+            </h3>
+            <p class="text-sm text-gray-500 mb-1">02/2019 – 03/2021</p>
+            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+              <li>Tham gia dự án Smooth File (chính phủ Nhật).</li>
+              <li>
+                Phát triển module File Defender – quản lý bảo mật tài liệu.
+              </li>
+              <li>CodeIgniter, PHP.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold text-gray-800">
+              Công ty tại Hồng Kông – Web Developer
+            </h3>
+            <p class="text-sm text-gray-500 mb-1">01/2018 – 01/2019</p>
+            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+              <li>Phát triển hệ thống CMS & HRM cho bệnh viện.</li>
+              <li>Tiếp xúc trực tiếp khách hàng để cải tiến sản phẩm.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kỹ năng chuyên môn -->
+      <section class="mt-10 bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-2xl font-semibold text-primary mb-4">
+          Kỹ năng chuyên môn
+        </h2>
+        <div class="flex flex-wrap gap-3">
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >PHP</span
+          >
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >NodeJS</span
+          >
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >ReactJS</span
+          >
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >NextJS</span
+          >
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >Python</span
+          >
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >CodeIgniter</span
+          >
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >WordPress</span
+          >
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >Web Security</span
+          >
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >RESTful API</span
+          >
+          <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm"
+            >WebSocket</span
+          >
+        </div>
+      </section>
+
+      <!-- Dự án tiêu biểu -->
+      <section class="mt-10 bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-2xl font-semibold text-primary mb-4">
+          Dự án tiêu biểu
+        </h2>
+        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+          <li>
+            <strong>Smooth File:</strong> Hệ thống chia sẻ tài liệu bảo mật cao
+            cho chính phủ Nhật Bản.
+          </li>
+          <li>
+            <strong>OKVIP CMS:</strong> Website đa giao diện với hơn 10+ landing
+            page.
+          </li>
+          <li>
+            <strong>Hệ thống phòng thủ OKVIP:</strong> Chống DDoS, giám sát và
+            bảo mật nội bộ.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Mục tiêu nghề nghiệp -->
+      <section class="mt-10 bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-2xl font-semibold text-primary mb-3">
+          Mục tiêu nghề nghiệp
+        </h2>
+        <p class="text-gray-700">
+          Mục tiêu trở thành Technical Lead hoặc Security Architect, định hướng
+          xây dựng hệ thống web hiệu suất cao, bảo mật và tối ưu cho doanh
+          nghiệp lớn.
+        </p>
+      </section>
+
+      <!-- Ngôn ngữ -->
+      <section class="mt-10 bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-2xl font-semibold text-primary mb-3">Ngôn ngữ</h2>
+        <ul class="list-disc pl-5 text-gray-700">
+          <li>Tiếng Việt: Bản ngữ</li>
+          <li>Tiếng Anh: Đọc hiểu tài liệu kỹ thuật tốt</li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>
