@@ -1,0 +1,1869 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lê Văn Thắng – Senior Fullstack Developer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      /* ─── RESET & BASE ──────────────────────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0a0e1a;
+        --bg2: #0f1526;
+        --bg3: #151c33;
+        --border: rgba(255, 255, 255, 0.07);
+        --accent: #4f8ef7;
+        --accent2: #7c3aed;
+        --accent3: #06b6d4;
+        --green: #10b981;
+        --orange: #f59e0b;
+        --red: #ef4444;
+        --text: #e2e8f0;
+        --muted: #64748b;
+        --card-bg: rgba(255, 255, 255, 0.04);
+        --card-hover: rgba(255, 255, 255, 0.07);
+        --glow: 0 0 40px rgba(79, 142, 247, 0.15);
+        --radius: 14px;
+        --radius-sm: 8px;
+        --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ─── NOISE OVERLAY ────────────────────────────────────────────────── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ─── SCROLLBAR ─────────────────────────────────────────────────────── */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 99px;
+      }
+
+      /* ─── NAV ───────────────────────────────────────────────────────────── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5vw;
+        height: 64px;
+        background: rgba(10, 14, 26, 0.85);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-logo {
+        font-weight: 800;
+        font-size: 1.2rem;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--muted);
+        transition: color var(--transition);
+        letter-spacing: 0.3px;
+      }
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      .nav-cta {
+        padding: 0.45rem 1.2rem;
+        border: 1px solid var(--accent);
+        border-radius: 99px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--accent) !important;
+        transition:
+          background var(--transition),
+          color var(--transition) !important;
+      }
+      .nav-cta:hover {
+        background: var(--accent);
+        color: #fff !important;
+        -webkit-text-fill-color: #fff !important;
+      }
+
+      /* ─── HERO ──────────────────────────────────────────────────────────── */
+      #hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 80px 5vw 60px;
+        overflow: hidden;
+      }
+
+      /* animated grid */
+      #hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(79, 142, 247, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(79, 142, 247, 0.06) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: gridMove 20s linear infinite;
+      }
+      @keyframes gridMove {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(50px);
+        }
+      }
+
+      /* orbs */
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        animation: float 8s ease-in-out infinite;
+        pointer-events: none;
+      }
+      .orb-1 {
+        width: 600px;
+        height: 600px;
+        background: rgba(79, 142, 247, 0.12);
+        top: -200px;
+        right: -100px;
+        animation-delay: 0s;
+      }
+      .orb-2 {
+        width: 400px;
+        height: 400px;
+        background: rgba(124, 58, 237, 0.1);
+        bottom: -100px;
+        left: 10%;
+        animation-delay: 3s;
+      }
+      .orb-3 {
+        width: 300px;
+        height: 300px;
+        background: rgba(6, 182, 212, 0.08);
+        top: 40%;
+        left: 50%;
+        animation-delay: 5s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-30px) scale(1.05);
+        }
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 0.9rem;
+        background: rgba(79, 142, 247, 0.1);
+        border: 1px solid rgba(79, 142, 247, 0.3);
+        border-radius: 99px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--accent);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+      }
+      .hero-badge .dot {
+        width: 7px;
+        height: 7px;
+        background: var(--green);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.4);
+        }
+      }
+
+      .hero-name {
+        font-size: clamp(2.8rem, 6vw, 5rem);
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        margin-bottom: 0.5rem;
+      }
+      .hero-name span {
+        background: linear-gradient(135deg, #fff 30%, var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-title {
+        font-size: clamp(1rem, 2.5vw, 1.4rem);
+        font-weight: 400;
+        color: var(--muted);
+        margin-bottom: 1.8rem;
+        font-family: "Fira Code", monospace;
+      }
+      .hero-title em {
+        color: var(--accent3);
+        font-style: normal;
+        font-weight: 500;
+      }
+
+      .hero-summary {
+        font-size: 1.05rem;
+        color: #94a3b8;
+        max-width: 620px;
+        margin-bottom: 2.5rem;
+        line-height: 1.8;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        margin-bottom: 2.5rem;
+      }
+      .hero-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+      .hero-meta-item i {
+        color: var(--accent);
+        font-size: 0.9rem;
+      }
+
+      .hero-btns {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.8rem;
+        border-radius: 99px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all var(--transition);
+        cursor: pointer;
+        border: none;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(79, 142, 247, 0.35);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(79, 142, 247, 0.5);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .btn-outline:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .hero-stats {
+        position: absolute;
+        right: 5vw;
+        bottom: 80px;
+        display: flex;
+        gap: 2rem;
+        z-index: 1;
+      }
+      .stat-card {
+        text-align: center;
+        padding: 1.5rem 2rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        backdrop-filter: blur(10px);
+        transition: transform var(--transition);
+      }
+      .stat-card:hover {
+        transform: translateY(-4px);
+      }
+      .stat-num {
+        font-size: 2.2rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--accent), var(--accent3));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 0.3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        font-weight: 500;
+      }
+
+      /* ─── SECTION COMMON ────────────────────────────────────────────────── */
+      section {
+        padding: 100px 5vw;
+        position: relative;
+      }
+      section:nth-child(even) {
+        background: var(--bg2);
+      }
+
+      .section-header {
+        margin-bottom: 4rem;
+      }
+      .section-eyebrow {
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent);
+        margin-bottom: 0.6rem;
+        font-family: "Fira Code", monospace;
+      }
+      .section-title {
+        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        font-weight: 800;
+        letter-spacing: -1px;
+        color: #fff;
+      }
+      .section-title span {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .max-w {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* ─── SKILLS ────────────────────────────────────────────────────────── */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .skill-category {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.8rem;
+        transition: all var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+      .skill-category::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: var(--radius) var(--radius) 0 0;
+      }
+      .skill-category:nth-child(1)::before {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+      }
+      .skill-category:nth-child(2)::before {
+        background: linear-gradient(90deg, var(--accent3), var(--green));
+      }
+      .skill-category:nth-child(3)::before {
+        background: linear-gradient(90deg, var(--orange), var(--red));
+      }
+      .skill-category:nth-child(4)::before {
+        background: linear-gradient(90deg, var(--accent2), var(--accent));
+      }
+      .skill-category:nth-child(5)::before {
+        background: linear-gradient(90deg, var(--green), var(--accent3));
+      }
+
+      .skill-category:hover {
+        background: var(--card-hover);
+        border-color: rgba(79, 142, 247, 0.25);
+        transform: translateY(-4px);
+        box-shadow: var(--glow);
+      }
+
+      .skill-cat-header {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1.2rem;
+      }
+      .skill-cat-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-sm);
+        font-size: 1.1rem;
+      }
+      .skill-cat-icon.blue {
+        background: rgba(79, 142, 247, 0.15);
+        color: var(--accent);
+      }
+      .skill-cat-icon.cyan {
+        background: rgba(6, 182, 212, 0.15);
+        color: var(--accent3);
+      }
+      .skill-cat-icon.orange {
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--orange);
+      }
+      .skill-cat-icon.purple {
+        background: rgba(124, 58, 237, 0.15);
+        color: var(--accent2);
+      }
+      .skill-cat-icon.green {
+        background: rgba(16, 185, 129, 0.15);
+        color: var(--green);
+      }
+
+      .skill-cat-name {
+        font-weight: 700;
+        font-size: 1rem;
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .skill-tag {
+        padding: 0.3rem 0.75rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #94a3b8;
+        transition: all var(--transition);
+      }
+      .skill-tag:hover {
+        background: rgba(79, 142, 247, 0.12);
+        border-color: rgba(79, 142, 247, 0.4);
+        color: var(--accent);
+      }
+
+      /* ─── EXPERIENCE ────────────────────────────────────────────────────── */
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+          180deg,
+          var(--accent),
+          var(--accent2),
+          transparent
+        );
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 3rem;
+        padding-left: 2.5rem;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -2.42rem;
+        top: 6px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 3px solid var(--bg);
+        box-shadow: 0 0 0 3px rgba(79, 142, 247, 0.3);
+      }
+
+      .exp-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 2rem;
+        transition: all var(--transition);
+      }
+      .exp-card:hover {
+        background: var(--card-hover);
+        border-color: rgba(79, 142, 247, 0.2);
+        box-shadow: var(--glow);
+        transform: translateX(6px);
+      }
+
+      .exp-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .exp-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #fff;
+      }
+      .exp-company {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.9rem;
+        color: var(--accent);
+        font-weight: 600;
+        margin-top: 0.2rem;
+      }
+
+      .exp-period {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.3rem 0.8rem;
+        background: rgba(79, 142, 247, 0.1);
+        border: 1px solid rgba(79, 142, 247, 0.2);
+        border-radius: 99px;
+        font-size: 0.78rem;
+        color: var(--accent);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .exp-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1rem;
+      }
+      .exp-tech-tag {
+        padding: 0.2rem 0.6rem;
+        background: rgba(124, 58, 237, 0.1);
+        border: 1px solid rgba(124, 58, 237, 0.25);
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #a78bfa;
+        font-family: "Fira Code", monospace;
+      }
+
+      .exp-desc {
+        color: #94a3b8;
+        font-size: 0.92rem;
+        margin-bottom: 1.2rem;
+      }
+      .exp-list {
+        list-style: none;
+        margin-bottom: 1.2rem;
+      }
+      .exp-list li {
+        position: relative;
+        padding-left: 1.2rem;
+        color: #94a3b8;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+      .exp-list li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-size: 0.8rem;
+      }
+
+      .achievements {
+        margin-top: 1.2rem;
+      }
+      .achievement-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--green);
+        margin-bottom: 0.7rem;
+      }
+      .achievement-list {
+        list-style: none;
+      }
+      .achievement-list li {
+        position: relative;
+        padding-left: 1.5rem;
+        color: #94a3b8;
+        font-size: 0.88rem;
+        margin-bottom: 0.4rem;
+      }
+      .achievement-list li::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        color: var(--green);
+        font-size: 0.7rem;
+        top: 0.2rem;
+      }
+
+      /* ─── PROJECTS ──────────────────────────────────────────────────────── */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 2rem;
+        transition: all var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+      .project-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(79, 142, 247, 0.05),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity var(--transition);
+        pointer-events: none;
+      }
+      .project-card:hover {
+        border-color: rgba(79, 142, 247, 0.3);
+        transform: translateY(-6px);
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.4),
+          var(--glow);
+      }
+      .project-card:hover::after {
+        opacity: 1;
+      }
+
+      .project-icon {
+        width: 52px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-sm);
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+      }
+      .project-icon.blue {
+        background: rgba(79, 142, 247, 0.15);
+        color: var(--accent);
+      }
+      .project-icon.purple {
+        background: rgba(124, 58, 237, 0.15);
+        color: var(--accent2);
+      }
+      .project-icon.cyan {
+        background: rgba(6, 182, 212, 0.15);
+        color: var(--accent3);
+      }
+
+      .project-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .project-desc {
+        font-size: 0.9rem;
+        color: #94a3b8;
+        margin-bottom: 1.2rem;
+        line-height: 1.7;
+      }
+      .project-features {
+        list-style: none;
+      }
+      .project-features li {
+        position: relative;
+        padding-left: 1.2rem;
+        color: #94a3b8;
+        font-size: 0.87rem;
+        margin-bottom: 0.4rem;
+      }
+      .project-features li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--accent3);
+      }
+
+      /* ─── STRENGTHS ─────────────────────────────────────────────────────── */
+      .strengths-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .strength-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 2rem 1.8rem;
+        text-align: center;
+        transition: all var(--transition);
+      }
+      .strength-card:hover {
+        background: var(--card-hover);
+        border-color: rgba(79, 142, 247, 0.2);
+        transform: translateY(-4px);
+        box-shadow: var(--glow);
+      }
+
+      .strength-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+      .strength-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.6rem;
+      }
+      .strength-desc {
+        font-size: 0.87rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      /* ─── CAREER GOAL ────────────────────────────────────────────────────── */
+      #goal .goal-content {
+        background: linear-gradient(
+          135deg,
+          rgba(79, 142, 247, 0.08),
+          rgba(124, 58, 237, 0.08)
+        );
+        border: 1px solid rgba(79, 142, 247, 0.2);
+        border-radius: var(--radius);
+        padding: 3rem;
+        position: relative;
+        overflow: hidden;
+      }
+      #goal .goal-content::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(
+          circle,
+          rgba(79, 142, 247, 0.15),
+          transparent
+        );
+        border-radius: 50%;
+      }
+
+      .goal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      .goal-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      .goal-num {
+        font-size: 2rem;
+        font-weight: 900;
+        line-height: 1;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        flex-shrink: 0;
+      }
+      .goal-text strong {
+        display: block;
+        color: #fff;
+        font-size: 0.95rem;
+        margin-bottom: 0.2rem;
+      }
+      .goal-text span {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      /* ─── FOOTER ─────────────────────────────────────────────────────────── */
+      footer {
+        background: var(--bg);
+        border-top: 1px solid var(--border);
+        padding: 2rem 5vw;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      footer span {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+      }
+
+      /* ─── SCROLL REVEAL ──────────────────────────────────────────────────── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+
+      /* ─── CONTACT STRIP ───────────────────────────────────────────────── */
+      .contact-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+        margin-bottom: 4rem;
+      }
+      .contact-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.6rem 1.2rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        font-size: 0.87rem;
+        transition: all var(--transition);
+      }
+      .contact-chip i {
+        color: var(--accent);
+      }
+      .contact-chip:hover {
+        border-color: var(--accent);
+        background: rgba(79, 142, 247, 0.08);
+        transform: translateY(-2px);
+      }
+
+      /* ─── AVATAR ─────────────────────────────────────────────────────────── */
+      .hero-right {
+        position: absolute;
+        right: 5vw;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        z-index: 1;
+      }
+
+      .hero-avatar-wrap {
+        position: relative;
+        width: 220px;
+        height: 220px;
+        flex-shrink: 0;
+      }
+      .hero-avatar-ring {
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        background: conic-gradient(
+          var(--accent),
+          var(--accent2),
+          var(--accent3),
+          var(--accent)
+        );
+        animation: spin 6s linear infinite;
+        z-index: 0;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .hero-avatar-ring::after {
+        content: "";
+        position: absolute;
+        inset: 4px;
+        border-radius: 50%;
+        background: var(--bg);
+      }
+      .hero-avatar-img {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: top;
+        background: var(--bg3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .hero-avatar-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 50%;
+      }
+      .avatar-placeholder {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--bg3), var(--bg2));
+        font-size: 3.5rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* ─── PDF PRINT ─────────────────────────────────────────────────────── */
+      .btn-pdf {
+        background: transparent;
+        color: var(--green);
+        border: 1px solid var(--green);
+      }
+      .btn-pdf:hover {
+        background: rgba(16, 185, 129, 0.12);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+      }
+
+      @media print {
+        nav,
+        .orb,
+        #hero::before,
+        .hero-btns,
+        .hero-stats,
+        .hero-avatar-ring,
+        footer {
+          display: none !important;
+        }
+        body {
+          background: #fff !important;
+          color: #111 !important;
+        }
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        section {
+          padding: 30px 20px !important;
+          background: #fff !important;
+        }
+        .hero-right {
+          position: static !important;
+          transform: none !important;
+          flex-direction: row !important;
+        }
+        #hero {
+          min-height: auto !important;
+          padding: 30px 20px !important;
+        }
+        .exp-card,
+        .skill-category,
+        .project-card,
+        .strength-card,
+        .goal-content {
+          border: 1px solid #ddd !important;
+          background: #f9f9f9 !important;
+          box-shadow: none !important;
+          break-inside: avoid;
+        }
+        .hero-name span,
+        .section-title span,
+        .stat-num,
+        .goal-num {
+          -webkit-text-fill-color: var(--accent) !important;
+          color: #2563eb !important;
+        }
+        .hero-summary,
+        .exp-list li,
+        .achievement-list li,
+        .project-desc,
+        .project-features li,
+        .strength-desc,
+        .goal-text span {
+          color: #444 !important;
+        }
+        .exp-tech-tag {
+          color: #6d28d9 !important;
+        }
+        .skill-tag {
+          color: #475569 !important;
+          border-color: #cbd5e1 !important;
+        }
+        a {
+          color: inherit !important;
+        }
+        .contact-strip {
+          margin-bottom: 0 !important;
+        }
+      }
+
+      /* ─── RESPONSIVE ──────────────────────────────────────────────────────── */
+      @media (max-width: 768px) {
+        nav {
+          padding: 0 4vw;
+        }
+        .nav-links {
+          display: none;
+        }
+        #hero {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .hero-right {
+          position: static !important;
+          transform: none !important;
+          width: 100%;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin-top: 2.5rem;
+        }
+        .hero-avatar-wrap {
+          width: 160px;
+          height: 160px;
+        }
+        .hero-stats {
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+        .stat-card {
+          padding: 1rem 1.5rem;
+        }
+        .timeline {
+          padding-left: 1rem;
+        }
+        .timeline-item {
+          padding-left: 1.5rem;
+        }
+        .timeline-item::before {
+          left: -1.42rem;
+        }
+        section {
+          padding: 70px 5vw;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-name {
+          letter-spacing: -1px;
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        .strengths-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ─── NAV ─────────────────────────────────────────────────────────── -->
+    <nav>
+      <div class="nav-logo">LVT</div>
+      <div class="nav-links">
+        <a href="#skills">Kỹ năng</a>
+        <a href="#experience">Kinh nghiệm</a>
+        <a href="#projects">Dự án</a>
+        <a href="#strengths">Điểm mạnh</a>
+      </div>
+      <a href="#goal" class="nav-cta">Liên hệ</a>
+    </nav>
+
+    <!-- ─── HERO ─────────────────────────────────────────────────────────── -->
+    <section id="hero">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+
+      <div class="hero-inner">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Sẵn sàng nhận cơ hội mới
+        </div>
+
+        <h1 class="hero-name"><span>Lê Văn Thắng</span></h1>
+
+        <p class="hero-title">
+          &lt; <em>Senior Fullstack Developer</em> · <em>Tech Lead</em> /&gt;
+        </p>
+
+        <p class="hero-summary">
+          Senior Fullstack Developer với hơn <strong>6 năm</strong> kinh nghiệm
+          xây dựng hệ thống web quy mô lớn. Thành thạo PHP, Next.js, React.js,
+          Node.js. Dẫn dắt team, tối ưu hiệu năng và xây dựng hạ tầng chống
+          DDoS.
+        </p>
+
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <i class="fa fa-calendar"></i> 22/12/1996
+          </div>
+          <div class="hero-meta-item">
+            <i class="fa fa-map-marker-alt"></i> Việt Nam
+          </div>
+          <div class="hero-meta-item">
+            <i class="fa fa-briefcase"></i> 6+ năm kinh nghiệm
+          </div>
+          <div class="hero-meta-item">
+            <i class="fa fa-users"></i> Team Lead 5–10 người
+          </div>
+          <div class="hero-meta-item">
+            <i class="fa fa-envelope"></i> thangle96.it@gmail.com
+          </div>
+          <div class="hero-meta-item">
+            <i class="fa fa-phone"></i> 0986 806 537
+          </div>
+          <div class="hero-meta-item">
+            <i class="fab fa-telegram"></i>
+            <a
+              href="https://t.me/greedev2"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: var(--muted); transition: color var(--transition)"
+              onmouseover="this.style.color = 'var(--accent)'"
+              onmouseout="this.style.color = 'var(--muted)'"
+              >@greedev2</a
+            >
+          </div>
+        </div>
+
+        <div class="hero-btns">
+          <a href="#experience" class="btn btn-primary">
+            <i class="fa fa-code"></i> Xem kinh nghiệm
+          </a>
+          <a href="#projects" class="btn btn-outline">
+            <i class="fa fa-folder-open"></i> Dự án tiêu biểu
+          </a>
+          <button class="btn btn-pdf" onclick="window.print()">
+            <i class="fa fa-file-pdf"></i> Tải CV (PDF)
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-avatar-wrap">
+          <div class="hero-avatar-ring"></div>
+          <div class="hero-avatar-img">
+            <img
+              src="avatar.png"
+              alt="Lê Văn Thắng"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div class="avatar-placeholder" style="display: none">LVT</div>
+          </div>
+        </div>
+
+        <div
+          class="hero-stats"
+          style="position: static; flex-direction: column; gap: 1rem"
+        >
+          <div class="stat-card reveal reveal-delay-1">
+            <div class="stat-num">6+</div>
+            <div class="stat-label">Năm kinh nghiệm</div>
+          </div>
+          <div class="stat-card reveal reveal-delay-2">
+            <div class="stat-num">100+</div>
+            <div class="stat-label">Domain quản lý</div>
+          </div>
+          <div class="stat-card reveal reveal-delay-3">
+            <div class="stat-num">80%</div>
+            <div class="stat-label">Giảm bot traffic</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SKILLS ────────────────────────────────────────────────────────── -->
+    <section id="skills">
+      <div class="max-w">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">// tech stack</p>
+          <h2 class="section-title">Kỹ năng <span>chuyên môn</span></h2>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Backend -->
+          <div class="skill-category reveal reveal-delay-1">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon blue">
+                <i class="fa fa-server"></i>
+              </div>
+              <span class="skill-cat-name">Backend</span>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">Laravel</span>
+              <span class="skill-tag">Core PHP</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">REST API</span>
+              <span class="skill-tag">Microservices</span>
+              <span class="skill-tag">JWT</span>
+              <span class="skill-tag">OAuth</span>
+            </div>
+          </div>
+
+          <!-- Frontend -->
+          <div class="skill-category reveal reveal-delay-2">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon cyan">
+                <i class="fa fa-desktop"></i>
+              </div>
+              <span class="skill-cat-name">Frontend</span>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">React.js</span>
+              <span class="skill-tag">Next.js</span>
+              <span class="skill-tag">SSR / SEO</span>
+              <span class="skill-tag">Redux</span>
+              <span class="skill-tag">Hooks</span>
+              <span class="skill-tag">TailwindCSS</span>
+              <span class="skill-tag">HTML5</span>
+              <span class="skill-tag">CSS3</span>
+            </div>
+          </div>
+
+          <!-- Database -->
+          <div class="skill-category reveal reveal-delay-3">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon orange">
+                <i class="fa fa-database"></i>
+              </div>
+              <span class="skill-cat-name">Database & Cache</span>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Query Optimization</span>
+              <span class="skill-tag">Indexing</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">Aggregation</span>
+              <span class="skill-tag">Redis</span>
+              <span class="skill-tag">Cache</span>
+              <span class="skill-tag">Queue</span>
+            </div>
+          </div>
+
+          <!-- DevOps -->
+          <div class="skill-category reveal reveal-delay-4">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon purple">
+                <i class="fa fa-cloud"></i>
+              </div>
+              <span class="skill-cat-name">DevOps / System</span>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Linux</span>
+              <span class="skill-tag">Ubuntu</span>
+              <span class="skill-tag">Nginx</span>
+              <span class="skill-tag">Apache</span>
+              <span class="skill-tag">Cloudflare</span>
+              <span class="skill-tag">WAF</span>
+              <span class="skill-tag">CDN</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">CI/CD</span>
+            </div>
+          </div>
+
+          <!-- Other -->
+          <div class="skill-category reveal reveal-delay-1">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon green">
+                <i class="fa fa-tools"></i>
+              </div>
+              <span class="skill-cat-name">Khác</span>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">SEO Technical</span>
+              <span class="skill-tag">Anti-DDoS</span>
+              <span class="skill-tag">Traffic Filter</span>
+              <span class="skill-tag">Automation</span>
+              <span class="skill-tag">Git / GitHub</span>
+              <span class="skill-tag">GitLab CI</span>
+              <span class="skill-tag">Cloaking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── EXPERIENCE ────────────────────────────────────────────────────── -->
+    <section id="experience">
+      <div class="max-w">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">// work history</p>
+          <h2 class="section-title">Kinh nghiệm <span>làm việc</span></h2>
+        </div>
+
+        <div class="timeline">
+          <!-- Job 1 -->
+          <div class="timeline-item reveal">
+            <div class="exp-card">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-title">IT SEO Leader / Tech Lead</div>
+                  <div class="exp-company">
+                    <i class="fa fa-building"></i> Công ty OKVIP
+                  </div>
+                </div>
+                <span class="exp-period"
+                  ><i class="fa fa-calendar-alt"></i> 2023 – 2025</span
+                >
+              </div>
+              <div class="exp-tech">
+                <span class="exp-tech-tag">PHP</span>
+                <span class="exp-tech-tag">Node.js</span>
+                <span class="exp-tech-tag">Redis</span>
+                <span class="exp-tech-tag">MySQL</span>
+                <span class="exp-tech-tag">Cloudflare</span>
+                <span class="exp-tech-tag">Nginx</span>
+                <span class="exp-tech-tag">Linux</span>
+              </div>
+              <ul class="exp-list">
+                <li>
+                  Dẫn dắt team IT &amp; SEO (5–10 nhân sự), đào tạo và xây dựng
+                  quy trình làm việc.
+                </li>
+                <li>
+                  Thiết kế và triển khai hệ thống website phục vụ SEO traffic
+                  lớn (hàng trăm domain).
+                </li>
+                <li>
+                  Xây dựng hệ thống tool nội bộ (PHP, Node.js) quản lý domain,
+                  nội dung và tracking.
+                </li>
+                <li>
+                  Tối ưu hiệu năng: Redis caching, query optimization MySQL,
+                  load balancing.
+                </li>
+                <li>
+                  Triển khai chống DDoS: Cloudflare WAF, rate limiting, filter
+                  bot/user-agent/IP.
+                </li>
+                <li>
+                  Setup hệ thống cloaking, routing traffic theo nguồn truy cập.
+                </li>
+                <li>Quản lý server Linux/Nginx, đảm bảo uptime và bảo mật.</li>
+              </ul>
+              <div class="achievements">
+                <div class="achievement-title">
+                  <i class="fa fa-trophy"></i> Thành tựu
+                </div>
+                <ul class="achievement-list">
+                  <li>
+                    Tăng tốc độ load site ~40–60% nhờ tối ưu cache &amp; CDN.
+                  </li>
+                  <li>
+                    Giảm &gt;80% traffic bot xấu bằng hệ thống filter &amp; WAF
+                    rules.
+                  </li>
+                  <li>
+                    Xây dựng thành công hệ thống SEO multi-site architecture quy
+                    mô lớn.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job 2 -->
+          <div class="timeline-item reveal">
+            <div class="exp-card">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-title">Fullstack Developer</div>
+                  <div class="exp-company">
+                    <i class="fa fa-building"></i> Công ty OKVIP
+                  </div>
+                </div>
+                <span class="exp-period"
+                  ><i class="fa fa-calendar-alt"></i> 2021 – 2023</span
+                >
+              </div>
+              <div class="exp-tech">
+                <span class="exp-tech-tag">React.js</span>
+                <span class="exp-tech-tag">Next.js</span>
+                <span class="exp-tech-tag">Node.js</span>
+                <span class="exp-tech-tag">MongoDB</span>
+              </div>
+              <ul class="exp-list">
+                <li>
+                  Phát triển frontend với React.js và Next.js (SSR, SEO
+                  friendly).
+                </li>
+                <li>Xây dựng backend API bằng Node.js.</li>
+                <li>Thiết kế database MongoDB cho hệ thống lớn.</li>
+                <li>
+                  Tối ưu hiệu năng frontend: lazy loading, code splitting.
+                </li>
+                <li>
+                  Triển khai hệ thống tracking người dùng &amp; analytics nội
+                  bộ.
+                </li>
+              </ul>
+              <div class="achievements">
+                <div class="achievement-title">
+                  <i class="fa fa-trophy"></i> Thành tựu
+                </div>
+                <ul class="achievement-list">
+                  <li>Xây dựng hệ thống web scale traffic lớn.</li>
+                  <li>Cải thiện SEO index đáng kể nhờ SSR Next.js.</li>
+                  <li>Giảm thời gian load trang xuống dưới 2 giây.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job 3 -->
+          <div class="timeline-item reveal">
+            <div class="exp-card">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-title">Fullstack Developer</div>
+                  <div class="exp-company">
+                    <i class="fa fa-building"></i> Công ty Plott Asian
+                  </div>
+                </div>
+                <span class="exp-period"
+                  ><i class="fa fa-calendar-alt"></i> 2020</span
+                >
+              </div>
+              <div class="exp-tech">
+                <span class="exp-tech-tag">Dự án Smooth File</span>
+                <span class="exp-tech-tag">Chính phủ Nhật Bản</span>
+              </div>
+              <ul class="exp-list">
+                <li>Phát triển hệ thống quản lý file với hiệu năng cao.</li>
+                <li>Xây dựng API xử lý upload/download file lớn.</li>
+                <li>Tối ưu database và xử lý concurrency.</li>
+              </ul>
+              <div class="achievements">
+                <div class="achievement-title">
+                  <i class="fa fa-trophy"></i> Thành tựu
+                </div>
+                <ul class="achievement-list">
+                  <li>Đảm bảo hệ thống ổn định với lượng dữ liệu lớn.</li>
+                  <li>Tối ưu tốc độ xử lý file đáng kể.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job 4 -->
+          <div class="timeline-item reveal">
+            <div class="exp-card">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-title">Backend Developer</div>
+                  <div class="exp-company">
+                    <i class="fa fa-hospital"></i> Công ty Hồng Công (Bệnh viện
+                    Phụ sản)
+                  </div>
+                </div>
+                <span class="exp-period"
+                  ><i class="fa fa-calendar-alt"></i> 2019</span
+                >
+              </div>
+              <div class="exp-tech">
+                <span class="exp-tech-tag">PHP</span>
+                <span class="exp-tech-tag">MySQL</span>
+              </div>
+              <ul class="exp-list">
+                <li>Phát triển hệ thống quản lý bệnh viện.</li>
+                <li>Xây dựng module quản lý bệnh nhân, lịch khám.</li>
+                <li>Tối ưu truy vấn database.</li>
+              </ul>
+              <div class="achievements">
+                <div class="achievement-title">
+                  <i class="fa fa-trophy"></i> Thành tựu
+                </div>
+                <ul class="achievement-list">
+                  <li>Ổn định hệ thống nội bộ bệnh viện.</li>
+                  <li>Cải thiện hiệu suất xử lý dữ liệu.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PROJECTS ──────────────────────────────────────────────────────── -->
+    <section id="projects">
+      <div class="max-w">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">// featured work</p>
+          <h2 class="section-title">Dự án <span>tiêu biểu</span></h2>
+        </div>
+
+        <div class="projects-grid">
+          <div class="project-card reveal reveal-delay-1">
+            <div class="project-icon blue"><i class="fa fa-globe"></i></div>
+            <div class="project-name">SEO Traffic System</div>
+            <div class="project-desc">
+              Hệ thống multi-domain quy mô lớn phục vụ SEO với hàng trăm
+              website, tích hợp caching và CDN toàn diện.
+            </div>
+            <ul class="project-features">
+              <li>Hàng trăm website vận hành đồng thời</li>
+              <li>Redis cache + Cloudflare CDN tích hợp</li>
+              <li>Cloaking & routing theo user-agent</li>
+              <li>Load balancing & auto-scaling</li>
+            </ul>
+            <div class="exp-tech" style="margin-top: 1.2rem">
+              <span class="exp-tech-tag">PHP</span>
+              <span class="exp-tech-tag">Redis</span>
+              <span class="exp-tech-tag">Cloudflare</span>
+              <span class="exp-tech-tag">Nginx</span>
+            </div>
+          </div>
+
+          <div class="project-card reveal reveal-delay-2">
+            <div class="project-icon purple"><i class="fa fa-cogs"></i></div>
+            <div class="project-name">Internal Tool System</div>
+            <div class="project-desc">
+              Hệ thống công cụ nội bộ quản lý domain, content và tracking,
+              automation xử lý dữ liệu hàng loạt.
+            </div>
+            <ul class="project-features">
+              <li>Dashboard quản lý domain & content</li>
+              <li>Tracking & phân tích traffic real-time</li>
+              <li>Automation xử lý dữ liệu hàng loạt</li>
+              <li>Tích hợp reporting & analytics</li>
+            </ul>
+            <div class="exp-tech" style="margin-top: 1.2rem">
+              <span class="exp-tech-tag">Node.js</span>
+              <span class="exp-tech-tag">PHP</span>
+              <span class="exp-tech-tag">MySQL</span>
+              <span class="exp-tech-tag">MongoDB</span>
+            </div>
+          </div>
+
+          <div class="project-card reveal reveal-delay-3">
+            <div class="project-icon cyan">
+              <i class="fa fa-shield-alt"></i>
+            </div>
+            <div class="project-name">Anti-DDoS Infrastructure</div>
+            <div class="project-desc">
+              Hệ thống bảo vệ chống DDoS tích hợp WAF, lọc bot thông minh giúp
+              giảm &gt;80% traffic độc hại.
+            </div>
+            <ul class="project-features">
+              <li>Cloudflare WAF + rate limiting rules</li>
+              <li>Bot & user-agent filtering</li>
+              <li>IP reputation blocking</li>
+              <li>Giảm &gt;80% traffic bot xấu</li>
+            </ul>
+            <div class="exp-tech" style="margin-top: 1.2rem">
+              <span class="exp-tech-tag">Cloudflare</span>
+              <span class="exp-tech-tag">Nginx</span>
+              <span class="exp-tech-tag">Linux</span>
+            </div>
+          </div>
+
+          <div class="project-card reveal reveal-delay-1">
+            <div
+              class="project-icon blue"
+              style="background: rgba(16, 185, 129, 0.15); color: var(--green)"
+            >
+              <i class="fa fa-file"></i>
+            </div>
+            <div class="project-name">Smooth File System</div>
+            <div class="project-desc">
+              Hệ thống quản lý file hiệu năng cao cho chính phủ Nhật Bản, xử lý
+              upload/download file lớn và concurrency.
+            </div>
+            <ul class="project-features">
+              <li>API upload/download file lớn</li>
+              <li>Xử lý concurrency hiệu quả</li>
+              <li>Tối ưu database cho dữ liệu lớn</li>
+              <li>Đảm bảo uptime & ổn định hệ thống</li>
+            </ul>
+            <div class="exp-tech" style="margin-top: 1.2rem">
+              <span class="exp-tech-tag">Plott Asian</span>
+              <span class="exp-tech-tag">Gov. Japan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── STRENGTHS ─────────────────────────────────────────────────────── -->
+    <section id="strengths">
+      <div class="max-w">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">// why me</p>
+          <h2 class="section-title">Điểm <span>mạnh</span></h2>
+        </div>
+
+        <div class="strengths-grid">
+          <div class="strength-card reveal reveal-delay-1">
+            <span class="strength-icon">🧠</span>
+            <div class="strength-title">Tư duy hệ thống</div>
+            <div class="strength-desc">
+              Thiết kế kiến trúc phù hợp vị trí Senior/Lead, tư duy scalable và
+              bền vững.
+            </div>
+          </div>
+          <div class="strength-card reveal reveal-delay-2">
+            <span class="strength-icon">⚡</span>
+            <div class="strength-title">Kinh nghiệm thực chiến</div>
+            <div class="strength-desc">
+              6+ năm xử lý traffic lớn và hệ thống thực tế, không chỉ lý thuyết.
+            </div>
+          </div>
+          <div class="strength-card reveal reveal-delay-3">
+            <span class="strength-icon">🚀</span>
+            <div class="strength-title">Performance & SEO</div>
+            <div class="strength-desc">
+              Hiểu sâu về tối ưu hiệu năng, SEO kỹ thuật và chống DDoS.
+            </div>
+          </div>
+          <div class="strength-card reveal reveal-delay-4">
+            <span class="strength-icon">👥</span>
+            <div class="strength-title">Lead & Đào tạo</div>
+            <div class="strength-desc">
+              Khả năng dẫn dắt team, xây dựng quy trình và đào tạo nhân sự hiệu
+              quả.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CAREER GOAL ────────────────────────────────────────────────────── -->
+    <section id="goal">
+      <div class="max-w">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">// next chapter</p>
+          <h2 class="section-title">Định hướng <span>sự nghiệp</span></h2>
+        </div>
+
+        <div class="goal-content reveal">
+          <p
+            style="
+              color: #94a3b8;
+              font-size: 1.05rem;
+              max-width: 600px;
+              line-height: 1.8;
+            "
+          >
+            Mục tiêu phát triển trở thành
+            <strong style="color: #fff">Tech Lead / Solution Architect</strong>,
+            xây dựng những hệ thống lớn, scalable và hiệu năng cao, tối ưu
+            backend &amp; hạ tầng cho doanh nghiệp.
+          </p>
+
+          <div class="goal-grid">
+            <div class="goal-item">
+              <div class="goal-num">01</div>
+              <div class="goal-text">
+                <strong>Tech Lead / Solution Architect</strong>
+                <span>Dẫn dắt kỹ thuật & định hướng kiến trúc</span>
+              </div>
+            </div>
+            <div class="goal-item">
+              <div class="goal-num">02</div>
+              <div class="goal-text">
+                <strong>Hệ thống lớn & Scalable</strong>
+                <span>Xây dựng nền tảng kỹ thuật vững chắc</span>
+              </div>
+            </div>
+            <div class="goal-item">
+              <div class="goal-num">03</div>
+              <div class="goal-text">
+                <strong>Backend & Hạ tầng</strong>
+                <span>Tối ưu performance & infrastructure</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-strip">
+            <a class="contact-chip" href="mailto:thangle96.it@gmail.com">
+              <i class="fa fa-envelope"></i>
+              thangle96.it@gmail.com
+            </a>
+            <a class="contact-chip" href="tel:0986806537">
+              <i class="fa fa-phone"></i>
+              0986 806 537
+            </a>
+            <a
+              class="contact-chip"
+              href="https://t.me/greedev2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-telegram"></i>
+              @greedev2
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FOOTER ─────────────────────────────────────────────────────────── -->
+    <footer>
+      <p>
+        Thiết kế &amp; phát triển bởi <span>Lê Văn Thắng</span> · Senior
+        Fullstack Developer · 2024
+      </p>
+    </footer>
+
+    <!-- ─── SCROLL REVEAL SCRIPT ─────────────────────────────────────────── -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // Active nav link highlight
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-links a");
+
+      const navObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              navLinks.forEach((a) => (a.style.color = ""));
+              const link = document.querySelector(
+                `.nav-links a[href="#${e.target.id}"]`,
+              );
+              if (link) link.style.color = "var(--accent)";
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+
+      sections.forEach((s) => navObserver.observe(s));
+    </script>
+  </body>
+</html>
